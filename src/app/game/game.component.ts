@@ -61,4 +61,9 @@ export class GameComponent implements OnInit {
 
     this.flippedCards = [];
   }
+  restartGame(): void {
+    this.cards = []; 
+    this.flippedCards = []; 
+    this.initializeCards(); 
+  }
 }
