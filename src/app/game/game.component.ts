@@ -26,10 +26,8 @@ export class GameComponent implements OnInit {
       '/img/fox.jpg'
     ];
 
-    // Képek megkettőzése
     const duplicatedUrls = [...imageUrls, ...imageUrls];
 
-    // Képek összekeverése
     this.cards = duplicatedUrls
       .map(url => ({ url, matched: false, flipped: false }))
       .sort(() => Math.random() - 0.5);
@@ -55,7 +53,6 @@ export class GameComponent implements OnInit {
       this.cards[card1.index].matched = true;
       this.cards[card2.index].matched = true;
 
-      // Kártyák párisításának ellenőrzése
       this.checkForWin();
     } else {
       setTimeout(() => {
@@ -68,14 +65,13 @@ export class GameComponent implements OnInit {
   }
 
   checkForWin(): void {
-    // Ha a kártyák párosítva vannak, a játékos nyert
     this.allMatched = this.cards.every(card => card.matched);
   }
 
   restartGame(): void {
-    this.cards = []; // Kártyák törlése
-    this.flippedCards = []; // Kártyák Törtélse
-    this.allMatched = false; // Győzelem törlése
-    this.initializeCards(); // Restart
+    this.cards = []; 
+    this.flippedCards = []; 
+    this.allMatched = false; 
+    this.initializeCards(); 
   }
 }
