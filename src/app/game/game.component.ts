@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game',
-  standalone: true, 
-  imports: [CommonModule], 
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
   cards: { url: string, matched: boolean, flipped: boolean }[] = [];
   flippedCards: { index: number, url: string }[] = [];
+  allMatched: boolean = false; 
 
   constructor() { }
 
@@ -25,9 +26,10 @@ export class GameComponent implements OnInit {
       '/img/fox.jpg'
     ];
 
-    
+    // Képek megkettőzése
     const duplicatedUrls = [...imageUrls, ...imageUrls];
 
+    // Képek összekeverése
     this.cards = duplicatedUrls
       .map(url => ({ url, matched: false, flipped: false }))
       .sort(() => Math.random() - 0.5);
@@ -52,6 +54,9 @@ export class GameComponent implements OnInit {
     if (card1.url === card2.url) {
       this.cards[card1.index].matched = true;
       this.cards[card2.index].matched = true;
+
+      // Kártyák párisításának ellenőrzése
+      this.checkForWin();
     } else {
       setTimeout(() => {
         this.cards[card1.index].flipped = false;
@@ -61,9 +66,16 @@ export class GameComponent implements OnInit {
 
     this.flippedCards = [];
   }
+
+  checkForWin(): void {
+    // Ha a kártyák párosítva vannak, a játékos nyert
+    this.allMatched = this.cards.every(card => card.matched);
+  }
+
   restartGame(): void {
-    this.cards = []; 
-    this.flippedCards = []; 
-    this.initializeCards(); 
+    this.cards = []; // Kártyák törlése
+    this.flippedCards = []; // Kártyák Törtélse
+    this.allMatched = false; // Győzelem törlése
+    this.initializeCards(); // Restart
   }
 }
