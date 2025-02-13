@@ -1,0 +1,6 @@
+<div class="game-board">
+    <div *ngFor="let card of cards; let i = index" class="card" (click)="flipCard(i)">
+      <img *ngIf="card.flipped || card.matched" [src]="card.url" alt="Card">
+      <div *ngIf="!card.flipped && !card.matched" class="card-back"></div>
+    </div>
+  </div>
